@@ -1,0 +1,107 @@
+.post{
+    width: 100%;
+    height: 61rem;
+    margin: 3rem 0;
+    border: 1px solid $color-grey-light-3;
+    box-shadow: 0px 0px 2px 0px $color-grey-light-3;
+
+    &__header{
+        height: 6rem;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        font-size: 2rem;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 2rem;
+        &--img{
+            height: 4rem;
+            width: 4rem;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 2rem;
+        }
+    }
+    &__footer{
+        height: 5rem;
+        width: 100%;
+        display: flex;
+        text-align: center;
+        align-items: center;
+        padding: 0 2rem;
+        &--name{
+            font-size: 1.5rem;
+            font-weight: 750;
+        }
+        &--caption{
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin: 0 1rem;
+        }
+    }
+}
+
+.image-slider{
+    width: 100%;
+    height: 50rem;
+    &__box{
+        width: 100%;
+        height: 50rem;
+        position: relative;
+        
+        & > img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    } 
+    
+    &__btn{
+        position: absolute;
+        width: 4rem;
+        height: 4rem;
+        z-index: 10;
+        background-color: rgba($color-white, 0.62);
+        border-radius: 50%;
+        font-size: 2rem;
+        box-shadow: 0px 0px 8px 1px $color-grey-light-2;
+        &:focus-visible, &:focus{
+            outline: none;
+        }
+
+    &-inc{
+        right: 2rem;
+        top: 50%;
+    }
+    &-dec{
+        left: 2rem;
+        top: 50%;
+    }}
+}
+
+.not-paid{
+    width:100%;
+    height: 45rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+
+    &__lock{
+        position: absolute;
+        top: 42%;
+        left: 47%;
+        color: $color-grey-light-2;
+        font-size: 5rem;
+        transform: translate(-50%,-50%);
+
+        &:hover{
+            color: $color-primary;
+        }
+    }
+    &__price{
+        margin: 2rem;
+        width: -webkit-fill-available;
+        text-align: center;
+    }
+}

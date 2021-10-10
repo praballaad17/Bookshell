@@ -1,0 +1,116 @@
+.search {
+
+    &__icon {
+        @include respond(tab-port){
+            display: none;
+        }
+    }
+    
+
+    &-box{
+        width: 28rem;
+        height: 5rem;
+        display: flex;
+        align-items: center;
+        border: 1px solid $color-grey-light-2;
+        border-radius: 1rem 1rem 0 0;
+        &__loading{
+            height: 2rem;
+            width: 2rem;
+            & > div {
+                height: 2rem!important;
+                width: 2rem!important;
+            }
+        }
+
+        @include respond(tab-port){
+            width: 65rem;
+            max-width: 65rem!important;
+        }
+        @include respond(phone){
+            width: 90vw;
+            max-width: 90vw!important;
+        }
+    }
+    &__input{
+        width: 25rem;
+        height: 2rem;
+        margin-left: 0.5rem;
+        background-color: $color-grey-light-1;
+            &:focus-visible{
+                outline: none;
+            }
+            @include respond(tab-port){
+                width: 65rem;
+                max-width: 65rem!important;
+            }
+            @include respond(phone){
+                width: 90vw;
+                max-width: 90vw!important;
+            }
+    }
+    
+    &-result{
+        background-color: $color-white;
+        width: 28rem;
+        max-height: 40rem;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        padding-bottom: 1rem;
+        border: 1px solid $color-grey-light-2;
+        border-radius: 0 0 1rem 1rem ;
+        @include respond(tab-port){
+            width: 65rem;
+            max-width: 65rem!important;
+            position: absolute;
+            top: 5.4rem;
+        }
+        @include respond(phone){
+            width: 90vw;
+            max-width: 90vw!important;
+        }
+       
+        
+        &__user{
+            width: 28rem;
+            height: 7rem;
+            display: flex;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            &:hover{
+                background-color: $color-grey-light-2;
+            }
+            @include respond(tab-port){
+                width: 65rem;
+                max-width: 65rem!important;
+            }
+            @include respond(phone){
+                width: 90vw;
+                max-width: 90vw!important;
+            }
+            
+        }
+
+        &--img{
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        &--info{
+            width: 17rem;
+            height: 5rem;
+            display: flex;
+            flex-direction: column;
+            padding: 0rem 2rem;
+        }
+    }
+    
+    &__loading {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        display: inline-block;
+    }
+}

@@ -1,0 +1,28 @@
+.timeline{
+    &__head{
+        height: 6rem;
+        position: sticky;
+        top: 0;
+        padding: 0 1rem;
+        z-index: 1;
+        background-color: rgb(250, 250, 250);
+        border-bottom: 2px solid $color-grey-light-2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        &--search{
+            display: flex;
+            align-items: center;
+            &btn {
+                @include respond(big){
+                    display: none;
+                }
+                @include respond(tab-port){
+                    display: inline-block;
+                }
+                }
+        }
+        
+    }
+}
