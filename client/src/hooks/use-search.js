@@ -7,7 +7,7 @@ export default function useSearch(query, pageNumber) {
     const [error, setError] = useState(false)
     const [result, setResult] = useState([]);
     const [hasMore, setMore] = useState(false)
-    const apiEndpoint = apiUrl + "/user";
+    const apiEndpoint = apiUrl + "/post";
 
     useEffect(() => {
         setResult([])

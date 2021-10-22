@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import * as ROUTES from '../constants/routes';
 import { Link, Route, useHistory } from 'react-router-dom';
-import { faBars, faBell, faBookmark, faChild, faCog, faHome, faIdCard, faList, faMailBulk, faPlus, faSignOutAlt, faUniversity, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faBell, faBook, faBookmark, faChild, faCog, faHome, faIdCard, faList, faMailBulk, faPlus, faSignOutAlt, faUniversity, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserContext from '../context/user';
 import useUser from '../hooks/use-user';
@@ -9,6 +9,7 @@ import ToggleBar from './toggleBar';
 import { getuserDisplayImgs } from '../services/userServices';
 import { useEffect } from 'react';
 import { DEFAULT_IMAGE_PATH } from '../constants/paths';
+import { logout } from '../services/authenticationServices';
 
 export default function Leftbar() {
     const [show, setShow] = useState(false)
@@ -41,13 +42,11 @@ export default function Leftbar() {
             <div className="leftbar">
                 <ul className="link-list">
                     <li className="link-list-item">
-                        <Link className="u-center-text" to={`/user/${user?.username}`} aria-label="Profile">
-                            <img className="link-list--proImg" src={profileImg} onError={(e) => {
-                                e.target.src = DEFAULT_IMAGE_PATH;
-                            }} alt={user?.username} />
-                            <span className="link--text">{user?.username}</span>
+                        <Link className="u-center-text heading-logo" to={ROUTES.DASHBOARD} aria-label="LOGO">
+                            Bookshell
                         </Link>
                     </li>
+
                     <li className="link-list-item">
                         <Link className="link" to={ROUTES.DASHBOARD} aria-label="Dashboard">
                             <span className="link--icon">
@@ -56,65 +55,61 @@ export default function Leftbar() {
                         </Link>
                     </li>
                     {loggedInUser && <> <li className="link-list-item">
-                        <Link className="link" to={ROUTES.DASHBOARD} aria-label="Dashboard">
+                        <Link className="link" to={ROUTES.BOOKSHELL} aria-label="Bookshell">
                             <span className="link--icon">
-                                <FontAwesomeIcon icon={faBell} />
+                                <FontAwesomeIcon icon={faCog} />
                             </span>
-                            <span className="link--text">Notifications</span>
+                            <span className="link--text">Settings</span>
                         </Link>
                     </li>
-                        <li className="link-list-item">
-                            <Link className="link" to={`${ROUTES.MESSAGES}`} aria-label="Messages">
-                                <span className="link--icon">
-                                    <FontAwesomeIcon icon={faMailBulk} />
+                        <li className="toggle-sidebar__item">
+                            <Link className="toggle-sidebar__link" to={ROUTES.DASHBOARD} aria-label="Dashboard">
+                                <span className="toggle-sidebar__link--icon">
+                                    <FontAwesomeIcon icon={faIdCard} />
                                 </span>
-                                <span className="link--text">Messages</span>
+                                <span className="toggle-sidebar__link--text">Your Cards</span>
                             </Link>
                         </li>
-                        <li className="link-list-item">
-                            <Link className="link" to={ROUTES.DASHBOARD} aria-label="Dashboard">
-                                <span className="link--icon"><FontAwesomeIcon icon={faBookmark} /></span>
-                                <span className="link--text">Bookmarks</span>
+                        <li className="toggle-sidebar__item">
+                            <Link className="toggle-sidebar__link" to={ROUTES.DASHBOARD} aria-label="Dashboard">
+                                <span className="toggle-sidebar__link--icon">
+                                    <FontAwesomeIcon icon={faUniversity} />
+                                </span>
+                                <span className="toggle-sidebar__link--text">Add Bank</span>
                             </Link>
                         </li>
-                        <li className="link-list-item">
-                            <Link className="link" to={ROUTES.DASHBOARD} aria-label="Dashboard">
-                                <span className="link--icon">
-                                    <FontAwesomeIcon icon={faList} /></span>
-                                <span className="link--text">List</span>
-                            </Link>
-                        </li>
-                        <li className="link-list-item">
-                            <Link className="link" to={ROUTES.DASHBOARD} aria-label="Dashboard">
-                                <span className="link--icon">
-                                    <FontAwesomeIcon icon={faChild} /></span>
-                                <span className="link--text">Subscription</span>
-                            </Link>
-                        </li>
-                        <li className="link-list-item">
-                            <Link className="link" to={`/user/${user?.username}`} aria-label="Dashboard">
-                                <span className="link--icon">
-                                    <FontAwesomeIcon icon={faUser} /></span>
-                                <span className="link--text">My Profile</span>
-                            </Link>
-                        </li>
+
+
                     </>
                     }
-                    <li className="link-list-item" onClick={() => setShow(true)}>
-                        <Link className="link"  >
-                            <span className="link--icon">
-                                <FontAwesomeIcon icon={faBars} /></span>
-                            <span className="link--text">More</span>
-                        </Link>
-                    </li>
                     {loggedInUser ? (
-                        <li className="link-list-item link-list-item--newpost" >
-                            <Link className="link" to={ROUTES.NEWPOST} aria-label="Newpost">
-                                <span className="link--icon">
-                                    <FontAwesomeIcon icon={faPlus} /></span>
-                                <span className="link--text">New Post</span>
-                            </Link>
-                        </li>) : (
+                        <>
+                            <li className="toggle-sidebar__item"
+                                onClick={() => {
+                                    logout();
+                                    window.location = ROUTES.LOGIN
+                                }}
+                                onKeyDown={(event) => {
+                                    if (event.key === 'Enter') {
+                                        logout();
+                                        window.location = ROUTES.LOGIN
+                                    }
+                                }}>
+                                <div className="toggle-sidebar__link" >
+                                    <span className="toggle-sidebar__link--icon">
+                                        <FontAwesomeIcon icon={faSignOutAlt} />
+                                    </span>
+                                    <span className="toggle-sidebar__link--text">Log Out</span>
+                                </div>
+                            </li>
+                            <li className="link-list-item link-list-item--newpost" >
+                                <Link className="link" to={ROUTES.NEWPOST} aria-label="Newpost">
+                                    <span className="link--icon">
+                                        <FontAwesomeIcon icon={faPlus} /></span>
+                                    <span className="link--text">New Post</span>
+                                </Link>
+                            </li>
+                        </>) : (
                         <li className="link-list-item link-list-item--newpost" >
                             <Link className="link" to={ROUTES.LOGIN} aria-label="Newpost">
                                 <span className="link--icon">

@@ -30,12 +30,12 @@
     box-shadow: 0 0.5rem 1rem rgba($color-primary, 0.2);
   }
 
-  &--white {
-    background-color: $color-white;
-    color: $color-grey;
+  &--read {
+    background-color: $color-tertiary-dark;
+    color: $color-white;
 
     &::after {
-      background-color: $color-white;
+      background-color: $color-tertiary-light;
     }
   }
 

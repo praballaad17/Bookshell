@@ -2,20 +2,25 @@ import React, { useContext, useState } from 'react'
 import { useHistory } from "react-router-dom";
 import { faImage, faLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Worker } from '@react-pdf-viewer/core';
+import { Viewer } from '@react-pdf-viewer/core';
 import UploadPreview from './uploadPreview'
 import LoggedInUserContext from '../../context/logged-in-user'
 import usePhotos from '../../hooks/use-photos'
-import { DASHBOARD } from '../../constants/routes'
+import { DASHBOARD, MYMATERIAL } from '../../constants/routes'
 import { postByUsername } from '../../services/postServices';
+import '@react-pdf-viewer/core/lib/styles/index.css';
+import Toggleswitch from '../toggleswitch';
 
 export default function Newpost() {
     const { user: loggedInUser } = useContext(LoggedInUserContext);
     const { setPosts } = usePhotos()
     const [selectedFiles, setSelectedFiles] = useState()
-    const [filePreviw, setFilePreviw] = useState([])
+    const [fileurl, setfileurl] = useState('')
     const [files, setFiles] = useState([])
     const [paid, setPaid] = useState(false)
     const [caption, setCaption] = useState("")
+    const [title, setTitle] = useState("")
     const [price, setPrice] = useState()
     let [result, setResult] = useState();
     let history = useHistory()
@@ -23,7 +28,7 @@ export default function Newpost() {
     const handleFileUpload = (e) => {
         if (!e.target.files.length) return;
 
-        setFilePreviw(prevFile => [...prevFile, URL.createObjectURL(e.target.files[0])])
+        setfileurl(URL.createObjectURL(e.target.files[0]))
         let reader = new FileReader();
         // Convert the file to base64 text
         reader.readAsDataURL(e.target.files[0]);
@@ -31,7 +36,7 @@ export default function Newpost() {
         reader.onload = () => {
             // Make a fileInfo Object
             const baseURL = reader.result;
-            setFiles(prevFiles => [...prevFiles, baseURL])
+            setFiles(baseURL)
         }
     }
 
@@ -39,10 +44,12 @@ export default function Newpost() {
         setCaption(e.target.value)
     }
 
-    const handleFileCross = (name) => {
-        setFilePreviw(filePreviw.filter(item => item != name))
-        const index = filePreviw.indexOf(name)
-        setFiles(files.splice(index, 1))
+    const handleTitle = (e) => {
+        setTitle(e.target.value)
+    }
+
+    const handlePaid = () => {
+        setPaid(!paid)
     }
 
     const progress = {
@@ -52,44 +59,66 @@ export default function Newpost() {
         }
     }
 
-    const isPaid = () => {
-        setPaid(!paid)
-    }
-    console.log(paid, price);
-
     const handleSubmit = async () => {
         try {
-            const { data } = await postByUsername(files, caption, loggedInUser.username, paid, price, progress)
+            const { data } = await postByUsername(files, title, caption, loggedInUser.username, paid, price, progress)
             // const res = await postByUsername(formData, loggedInUser.username)
             setPosts(data)
-            history.push(DASHBOARD)
+            history.push(MYMATERIAL)
         } catch (error) {
             console.log(error.response);
         }
     }
 
-
+    console.log(paid);
     return (
         <>
             <div className="newpost__head">
                 <h3 className="heading-tertiary">New Post</h3>
                 <div>
-                    <FontAwesomeIcon className={`newpost__lock`} onClick={isPaid} icon={faLock} />
+                    <Toggleswitch label="Paid" handlePaid={handlePaid} />
                     <button className="btn btn--grey" onClick={handleSubmit}>Post</button>
                 </div>
+
             </div>
             <div className="newpost__main">
-                <div>
-                    <UploadPreview files={filePreviw} onChange={handleFileCross} />
-                </div>
-                <textarea className="newpost__input-text" placeholder="compose new post..." onChange={handleCaption} />
+                <input className="newpost__input-text" type="text" placeholder="Title" onChange={handleTitle} />
+                <textarea className="newpost__input-text" placeholder="Disciption..." onChange={handleCaption} />
                 <label className="newpost__media">
                     <FontAwesomeIcon icon={faImage} />
                     <input type="file" style={{ opacity: 0, position: "absolute", left: "-99999px" }} onChange={handleFileUpload} />
                 </label>
-                <input type="text" placeholder="Price You Select" onChange={(e) => setPrice(e.target.value)} />
-            </div>
 
+                <input type="text" placeholder="Price" onChange={(e) => setPrice(e.target.value)} />
+            </div>
+            <div style={{ height: '750px' }}>
+                {fileurl ? (
+                    <div
+                        style={{
+                            border: '1px solid rgba(0, 0, 0, 0.3)',
+                            height: '100%',
+                        }}
+                    >
+                        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
+                            <Viewer fileUrl={fileurl} />
+                        </Worker>
+                    </div>
+                ) : (
+                    <div
+                        style={{
+                            alignItems: 'center',
+                            border: '2px dashed rgba(0, 0, 0, .3)',
+                            display: 'flex',
+                            fontSize: '2rem',
+                            height: '100%',
+                            justifyContent: 'center',
+                            width: '100%',
+                        }}
+                    >
+                        Preview area
+                    </div>
+                )}
+            </div>
         </>
     )
 }

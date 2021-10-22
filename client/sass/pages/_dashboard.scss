@@ -34,20 +34,8 @@
         }
     }
 
-    &__phonebar{
-        display: none;
-
-    @include respond(phone){
-        display: inline;
-        position: fixed;
-        bottom: 0;
-        z-index: 100;
-    }
-}
-
-
     &__main{
-        width: 70rem;
+        width: 100rem;
         border: 2px solid $color-grey-light-2;
         z-index: 10;
 
@@ -75,6 +63,11 @@
         @include respond(tab-port) {
             display: none;
         }
+    }
+
+    &__searchbar {
+        display: flex;
+        justify-content: center;
     }
 }
 

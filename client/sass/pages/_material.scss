@@ -1,0 +1,38 @@
+.material {
+    margin: 3rem;;
+    &__head{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__author {
+        & > span {
+            color: $color-tertiary-dark;
+        }
+    }
+
+    &__price-box{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__discription{
+        margin-top: 2rem;
+        color: $color-black;
+    }
+
+    &__review{
+        margin-top: 2rem;
+        color: $color-black;
+    }
+}
+
+.mymaterial {
+    &__head {
+        margin: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;}
+}

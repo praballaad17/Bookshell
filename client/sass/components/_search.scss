@@ -8,7 +8,7 @@
     
 
     &-box{
-        width: 28rem;
+        width: 50rem;
         height: 5rem;
         display: flex;
         align-items: center;
@@ -33,7 +33,7 @@
         }
     }
     &__input{
-        width: 25rem;
+        width: 46rem;
         height: 2rem;
         margin-left: 0.5rem;
         background-color: $color-grey-light-1;
@@ -51,28 +51,12 @@
     }
     
     &-result{
-        background-color: $color-white;
-        width: 28rem;
-        max-height: 40rem;
-        overflow-x: hidden;
-        overflow-y: scroll;
-        padding-bottom: 1rem;
-        border: 1px solid $color-grey-light-2;
-        border-radius: 0 0 1rem 1rem ;
-        @include respond(tab-port){
-            width: 65rem;
-            max-width: 65rem!important;
-            position: absolute;
-            top: 5.4rem;
-        }
-        @include respond(phone){
-            width: 90vw;
-            max-width: 90vw!important;
-        }
-       
+        display: flex;
+        justify-content: center;
+        padding: 1rem;
         
-        &__user{
-            width: 28rem;
+        &__material{
+            width: 50rem;
             height: 7rem;
             display: flex;
             padding: 2rem;
@@ -104,6 +88,11 @@
             display: flex;
             flex-direction: column;
             padding: 0rem 2rem;
+            color: $color-black;
+
+            &-author {
+                color: $color-tertiary-dark;
+            }
         }
     }
     
