@@ -6,13 +6,13 @@ import { DEFAULT_IMAGE_PATH, LOADING_ANI_PATH } from '../../constants/paths';
 import useSearch from '../../hooks/use-search';
 import LoadingAni from '../loadingAni';
 import { Link } from 'react-router-dom';
-import LoggedInUserContext from '../../context/logged-in-user';
+import { useUser } from '../../context/userContext';
 
 export default function SearchBar() {
     let history = useHistory();
     const [search, setSearch] = useState()
-    const { searchResult, setSearchResult } = useContext(LoggedInUserContext);
-    // const [searchResult, setSearchResult] = useState([])
+    const { searchResult, setSearchResult } = useUser();
+
     const [pageNumber, setPageNumber] = useState(1)
 
     const handleSearch = (e) => {

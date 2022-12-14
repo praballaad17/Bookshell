@@ -10,3 +10,4 @@ export const BOOKSHELL = '/bookshell';
 export const MYMATERIAL = '/bookshell/mymaterial';
 export const PURSMATERIAL = '/bookshell/pursmaterial';
 export const SEARCHRESULT = '/search-result';
+export const REQUEST = '/request-your-book';

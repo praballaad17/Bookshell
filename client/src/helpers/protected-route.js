@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { Route, Redirect, useLocation } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 import { useContext } from 'react';
-import UserContext from '../context/user';
-import { getCurrentUser } from '../services/authenticationServices';
+import { useUser } from '../context/userContext';
 
-export default function ProtectedRoute({ children, ...rest }) {
-  const user = getCurrentUser()
+export default function ProtectedRoute({ user, children, ...rest }) {
   return (
     <Route
       {...rest}

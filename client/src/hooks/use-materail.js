@@ -13,9 +13,12 @@ export default function useMaterial(user, pageNumber) {
         setError(false)
         async function getMaterial() {
             try {
-                const material = await getUserMaterialByUsername(user.username, 1, 5);
-                setMaterial(prevPost => { return [...prevPost, ...material.result] });
-                setMore(material.result.length > 0)
+                const material = await getUserMaterialByUsername(user?.username, 1, 10);
+                setMaterial(prevPost => [...prevPost, ...material?.result]);
+                const purcmaterial = await getUserPurcMaterialByUserId(user?.id);
+                console.log(purcmaterial);
+                setPurcMaterial(prevPost => { return [...prevPost, ...purcmaterial] });
+                setMore(material?.result?.length > 0)
                 setLoading(false)
             } catch (error) {
                 setError(true)
@@ -24,20 +27,21 @@ export default function useMaterial(user, pageNumber) {
 
         }
 
-        async function getPurcMaterial() {
-            try {
-                const purcmaterial = await getUserPurcMaterialByUserId(user._id);
-                console.log(purcmaterial);
-                setPurcMaterial(prevPost => { return [...prevPost, ...purcmaterial] });
-            } catch (error) {
-                setError(true)
-                console.log(error);
-            }
+        // async function getPurcMaterial() {
+        //     try {
+        //         const purcmaterial = await getUserPurcMaterialByUserId(user._id);
+        //         console.log(purcmaterial);
+        //         setPurcMaterial(prevPost => { return [...prevPost, ...purcmaterial] });
+        //         setLoading(false)
+        //     } catch (error) {
+        //         setError(true)
+        //         console.log(error);
+        //     }
 
-        }
+        // }
 
         getMaterial();
-        getPurcMaterial();
+        // getPurcMaterial();
     }, [user?._id, pageNumber]);
 
     return { material, purcMaterial, loading, error, hasMore, setMaterial, setPurcMaterial };

@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { apiUrl } from "../config.json";
+import { apiUrl, localurl } from "../config.json";
 
 export default function useSearch(query, pageNumber) {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
     const [result, setResult] = useState([]);
     const [hasMore, setMore] = useState(false)
-    const apiEndpoint = apiUrl + "/post";
+    const apiEndpoint = localurl + "/post";
 
     useEffect(() => {
         setResult([])

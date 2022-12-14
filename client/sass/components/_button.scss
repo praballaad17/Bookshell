@@ -42,9 +42,23 @@
   &--grey {
     background-color: $color-grey-light-2;
     color: $color-white;
+  }
+
+  &--orange {
+    background-color: $color-secondary-light;
+    color: $color-white;
 
     &::after {
-      background-color: $color-grey-dark-2;
+      background-color: $color-secondary-light;
+    }
+  }
+
+  &--green {
+    background-color: $color-green;
+    color: $color-white;
+
+    &::after {
+      background-color: $color-green;
     }
   }
 

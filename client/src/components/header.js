@@ -1,14 +1,11 @@
 import { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import UserContext from '../context/user';
+import { useUser } from '../context/userContext';
 import * as ROUTES from '../constants/routes';
 import { DEFAULT_IMAGE_PATH } from '../constants/paths';
-import useUser from '../hooks/use-user';
-import SearchBar from './leftbar/searchBar';
 
 export default function Header() {
-  const { user: loggedInUser } = useContext(UserContext);
-  const { user } = useUser(loggedInUser?.uid);
+  const { user } = useUser();
   const history = useHistory();
 
   return (
@@ -24,7 +21,7 @@ export default function Header() {
       {/* <SearchBar /> */}
 
       <div className="header__input">
-        {loggedInUser ? (
+        {user ? (
           <>
             <Link to={ROUTES.DASHBOARD} aria-label="Dashboard">
               <svg

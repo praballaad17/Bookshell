@@ -1,10 +1,10 @@
 import { faPoundSign } from '@fortawesome/free-solid-svg-icons';
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
-import LoggedInUserContext from '../../context/logged-in-user';
+import { useUser } from '../../context/userContext';
 
 export default function SearchResult() {
-    const { searchResult } = useContext(LoggedInUserContext);
+    const { searchResult } = useUser();
     console.log(searchResult);
     if (!searchResult.length) return (
         <div className="u-all-center">Result Not Found...</div>

@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { apiUrl } from "../config.json";
+import { apiUrl, localurl } from "../config.json";
 import jwtDecode from 'jwt-decode';
 
-const apiEndpoint = apiUrl + "/user";
+// const apiEndpoint = apiUrl + "/user";
+const apiEndpoint = localurl + "/user";
+
 const tokenKey = "token"
 
 export const getUserByUsername = async (usernameOrEmail) => {
@@ -54,43 +56,3 @@ export const getuserDisplayImgs = async (username) => {
         console.log(err.response?.data.error);
     }
 };
-
-export const getusersFollowing = async (usernameOrEmail) => {
-    try {
-        const response = await axios.get(`${apiEndpoint}/username/following/${usernameOrEmail}`);
-        return response.data;
-    } catch (err) {
-        console.log(err.response?.data.error);
-    }
-}
-
-export const getusersFollowers = async (usernameOrEmail) => {
-    try {
-        const response = await axios.get(`${apiEndpoint}/username/followers/${usernameOrEmail}`);
-        return response.data;
-    } catch (err) {
-        console.log(err.response?.data.error);
-    }
-}
-
-export const toggleFollow = async (isFollowingProfile,
-    profileUserId,
-    followingUserId) => {
-    if (isFollowingProfile) {
-        console.log("unfollwing");
-        //remove followingUserId from profileUserId's follower list
-        //remove profileUserId from followingUserId's following list
-        await axios.put(`${apiEndpoint}/unfollow/${profileUserId}`, {
-            followingUserId
-        })
-    }
-    else {
-        console.log("follow");
-        //add followingUserId in profileUserId's follower list
-        //add profileUserId's from followingUserId's following list
-        await axios.put(`${apiEndpoint}/follow/${profileUserId}`, {
-            followingUserId
-        })
-
-    }
-}

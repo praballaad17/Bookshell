@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { apiUrl } from "../config.json";
+import { apiUrl, localurl } from "../config.json";
 import jwtDecode from 'jwt-decode';
 
-const apiEndpoint = apiUrl + "/auth";
+// const apiEndpoint = apiUrl + "/auth";
+const apiEndpoint = localurl + "/auth";
+console.log(apiEndpoint);
 const tokenKey = "token"
 function setJwt(jwt) {
   axios.defaults.headers.common['x-auth-token'] = jwt

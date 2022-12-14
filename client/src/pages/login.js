@@ -2,12 +2,10 @@ import { useState, useContext, useEffect } from 'react';
 import { Link, useHistory, Redirect, useLocation } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 import { login } from '../services/authenticationServices'
-import UserContext from '../context/user';
 
-export default function Login() {
+export default function Login({ user: loggedInUser }) {
   const location = useLocation()
   const history = useHistory();
-  const { user: loggedInUser } = useContext(UserContext);
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
 
@@ -29,9 +27,8 @@ export default function Login() {
   };
 
   useEffect(() => {
-    document.title = 'Login - Touch';
+    document.title = "Login - Book'N'Things";
   }, []);
-  console.log(location, history);
 
   if (loggedInUser) return <Redirect to={ROUTES.DASHBOARD} />
 
@@ -40,7 +37,7 @@ export default function Login() {
       <div className="login__box">
         <div className="login__box--sub">
           <h1 className="login__box--head">
-            Bookshell
+            Book'N'Things
           </h1>
 
           {error && <p className="login__box--error">{error}</p>}

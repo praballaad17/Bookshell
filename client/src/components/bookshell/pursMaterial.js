@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { Link } from 'react-router-dom';
 import MaterialContext from '../../context/material'
 import Reader from './reader';
 
@@ -11,6 +12,11 @@ export default function PursMaterial() {
         setOpen(item)
     }
 
+    if (!PursMaterial.length) return (
+        <div className="u-all-center">Try Some New Books...</div>
+    )
+    console.log(PursMaterial);
+
     return (
         <div>
             {PursMaterial && <div className="mymaterial">
@@ -18,13 +24,16 @@ export default function PursMaterial() {
                     return (
                         <>
                             <div className="mymaterial__head">
-                                <h2 className="heading-secondary"> {item.title}</h2>
+                                <h2 className="heading-secondary">
+                                    <Link to={`/material/${item.title}`} className="search-result__material">
+                                        {item.title}</Link>
+                                </h2>
                                 <button onClick={() => handelRead(item)} className="btn btn--read">Read</button>
                             </div>
                         </>
                     )
                 })}
-                <Reader reader={reader} material={open} onClose={() => setReader(false)} />
+               {reader && <Reader reader={reader} material={open} onClose={() => setReader(false)} /> }
             </div>}
         </div>
     )
